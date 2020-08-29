@@ -1,0 +1,40 @@
+version: '3.3'
+services:
+    postgres:
+        image: postgres:13-alpine
+        volumes:
+            - ./postgres/volumes:/var/lib/postgresql/data
+        environment:
+            - POSTGRES_PASSWORD=pgpassword
+        networks:
+            backend:
+                aliases:
+                  - postgres
+
+    flask:
+        image: post-check_app:latest
+        depends_on:
+            - postgres
+        networks:
+            backend:
+                aliases:
+                  - flask
+                  
+    nginx:
+        image: nginx:1.19.2-alpine
+        depends_on:
+            - flask
+        ports:
+            - 8080:8080
+        volumes:
+            - ./nginx/templates/nginx.conf:/etc/nginx/conf.d/default.conf
+        networks:
+            backend:
+                aliases:
+                  - nginx
+            frontend:
+                aliases: 
+                  - nginx
+networks:
+    frontend:
+    backend:  
