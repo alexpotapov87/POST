@@ -26,7 +26,7 @@ db.create_all()
 @app.route('/post', methods=['POST'])
 def result():
     ''' Recieve request & write it to db request and value '''
-    response_re = request.form
+    response_re = request.form['POST_REQUEST']
     received = request_table(response=str({response_re}))
     db.session.add(received)
     db.session.commit()

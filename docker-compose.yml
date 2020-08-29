@@ -12,6 +12,7 @@ services:
                   - postgres
 
     flask:
+        build: ./app_srv/.
         image: post-check_app:latest
         depends_on:
             - postgres
@@ -19,7 +20,7 @@ services:
             backend:
                 aliases:
                   - flask
-                  
+
     nginx:
         image: nginx:1.19.2-alpine
         depends_on:
