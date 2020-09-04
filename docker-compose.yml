@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.8'
 services:
     postgres:
         image: postgres:13-alpine
@@ -22,13 +22,12 @@ services:
                   - flask
 
     nginx:
-        image: nginx:1.19.2-alpine
+        build: ./nginx/.
+        image: post_nginx
         depends_on:
             - flask
         ports:
             - 8080:8080
-        volumes:
-            - ./nginx/templates/nginx.conf:/etc/nginx/conf.d/default.conf
         networks:
             backend:
                 aliases:
