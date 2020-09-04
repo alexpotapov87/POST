@@ -1,9 +1,9 @@
-version: '3.8'
+version: '3.3'
 services:
     postgres:
         image: postgres:13-alpine
         volumes:
-            - ./postgres/volumes:/var/lib/postgresql/data
+            - /var/lib/postgresql/data
         environment:
             - POSTGRES_PASSWORD=pgpassword
         networks:
